@@ -80,8 +80,8 @@
 				/>
 			</div>
 			<p
+				id = 'title'
 				style:color = {theme?.colors.primary}
-				style:font-size = 2.88rem
 			>
 				SMS Viewer
 			</p>
@@ -122,7 +122,7 @@
 				oninput={(e: Event) => {
 					phone = extractors.getInputValue(e); //Извлечение значения
 					phone = phone.replace(/\D/g, '');
-					
+
 					if (phone.length !== 0) {
 						phone = formatNumber(phone);
 					}
@@ -144,6 +144,7 @@
 	}
 
 	.content {
+		padding: 1rem;
 		display: flex; /* Активируем flexbox */
 		justify-content: center;
 		align-items: center;
@@ -154,5 +155,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	#title {
+		font-size: 2.88rem;
+	}
+
+	@media (max-width: 420px) {
+		/* Дополнительные изменения для маленьких экранов */
+		#title {
+			font-size: 2.5rem; /* Уменьшаем отступы */
+		}
 	}
 </style>
