@@ -17,6 +17,47 @@
 	themeStore.subscribe(value => {
 		theme = value; //Инициализация объекта темы
 	});
+
+	function formatNumber(phone: string) {
+		const len = phone.length;
+		let formatPhone = ''; 
+
+		switch (len) {
+			case 1: 
+				formatPhone = `(${phone[0]}`;
+				break;
+			case 2: 
+				formatPhone = `(${phone[0]}${phone[1]}`;
+				break;
+			case 3: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}`;
+				break;
+			case 4: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}`;
+				break;
+			case 5: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}`;
+				break;
+			case 6: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]}`;
+				break;
+			case 7: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]} ${phone[6]}`;
+				break;
+			case 8: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]} ${phone[6]}${phone[7]}`;
+				break;
+			case 9: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]} ${phone[6]}${phone[7]}-${phone[8]}`;
+				break;
+			case 10: 
+				formatPhone = `(${phone[0]}${phone[1]}${phone[2]}) ${phone[3]}${phone[4]}${phone[5]} ${phone[6]}${phone[7]}-${phone[8]}${phone[9]}`;
+				break;
+		}
+
+		console.log('DDD')
+		return formatPhone;
+	}
 </script>
 
 <div class = content>
@@ -81,7 +122,12 @@
 				oninput={(e: Event) => {
 					phone = extractors.getInputValue(e); //Извлечение значения
 					phone = phone.replace(/\D/g, '');
+					
+					if (phone.length !== 0) {
+						phone = formatNumber(phone);
+					}
 				}}
+				maxlength=15
 			/>
 		</div>
 		<Button width = 100%>
