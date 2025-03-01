@@ -4,7 +4,8 @@
 	import { themeStore } from "svelte-elegant/stores/themeStore";
 	import { 
 		TextField, 
-		Button 
+		Button,
+		TitledBox
 	} from 'svelte-elegant';
 
 	//Импорт утилит
@@ -12,6 +13,7 @@
 
 	let theme: IColorThemeStore | undefined;
 	let phone = '';
+	let messageColor = '#6b6b6b'
 
 	// Подписываемся на изменения темы
 	themeStore.subscribe(value => {
@@ -55,7 +57,6 @@
 				break;
 		}
 
-		console.log('DDD')
 		return formatPhone;
 	}
 </script>
@@ -69,19 +70,19 @@
 			class = logo
 		>
 			<div
-				style:background-color = {theme?.colors.primary}
+				style:background-color = {theme?.palette.primary}
 				style:padding = 1.5rem
 				style:border-radius = 50%
 			>
 				<EnvelopeIcon 
 					fill = 'none'
-					stroke = {theme?.colors.background}
+					stroke = {theme?.palette.background}
 					size = 4.25rem
 				/>
 			</div>
 			<p
 				id = 'title'
-				style:color = {theme?.colors.primary}
+				style:color = {theme?.palette.primary}
 			>
 				SMS Viewer
 			</p>
@@ -92,7 +93,10 @@
 		>
 			Enter your phone number
 		</div>
-		<p style:color = #6b6b6b>
+		<p 
+			style:color = {messageColor}
+			style:transition = 'color 1s ease'
+		>
 			Enter the phone number to view the SMS.
 		</p>
 		<div style:display = flex>
@@ -100,10 +104,10 @@
 				style:display = flex
 				style:align-items = center
 				style:gap = 0.45rem
-				style:background-color = {theme?.disabled.touch}
+				style:background-color = {theme?.surface.ghost.background}
 				style:border = {`1px solid ${theme?.border.disabled.color}`}
 				style:height = {theme?.controls.height}
-				style:border-radius = {theme?.border.borderRadius}
+				style:border-radius = {theme?.border.borderRadius.balanced}
 				style:margin-right = 0.58rem
 				style:padding = 0.45rem
 				style:box-sizing = border-box
@@ -130,9 +134,24 @@
 				maxlength=15
 			/>
 		</div>
-		<Button width = 100%>
+		<Button 
+			width = 100%
+			onclick = {() => {
+				if (phone.length !== 15) {
+					messageColor = 'red';
+
+					// Возвращаем исходный цвет через 1 секунду (1000 мс)
+					setTimeout(() => {
+						messageColor = '#6b6b6b';
+					}, 3000);
+				}
+			}}
+		>
 			Next
 		</Button>
+		<TitledBox>
+			
+		</TitledBox>
 	</div>
 </div>
 
@@ -159,12 +178,5 @@
 
 	#title {
 		font-size: 2.88rem;
-	}
-
-	@media (max-width: 420px) {
-		/* Дополнительные изменения для маленьких экранов */
-		#title {
-			font-size: 2.5rem; /* Уменьшаем отступы */
-		}
 	}
 </style>
