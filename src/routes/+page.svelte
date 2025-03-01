@@ -87,70 +87,75 @@
 				SMS Viewer
 			</p>
 		</div>
-		<div 
-			style:align-self = flex-start
-			style:font-weight = 600
+		<TitledBox 
+			width = 100%
+			gap = 0.8rem
+			padding = 0.8rem
 		>
-			Enter your phone number
-		</div>
-		<p 
-			style:color = {messageColor}
-			style:transition = 'color 1s ease'
-		>
-			Enter the phone number to view the SMS.
-		</p>
-		<div style:display = flex>
 			<div 
-				style:display = flex
-				style:align-items = center
-				style:gap = 0.45rem
-				style:background-color = {theme?.surface.ghost.background}
-				style:border = {`1px solid ${theme?.border.disabled.color}`}
-				style:height = {theme?.controls.height}
-				style:border-radius = {theme?.border.borderRadius.balanced}
-				style:margin-right = 0.58rem
-				style:padding = 0.45rem
-				style:box-sizing = border-box
+				class = 'text'
+				style:align-self = flex-start
+				style:font-weight = 600
 			>
-				<img 
-					src = 'ru.png'
-					alt = ru 
-					height = 100%
-				/>
-				<p>+7</p>
+				Enter your phone number
 			</div>
-			<TextField 
-				bind:value = {phone}
-				width = 100% 
-				label = '(XXX) XXX XX-XX' 
-				oninput={(e: Event) => {
-					phone = extractors.getInputValue(e); //Извлечение значения
-					phone = phone.replace(/\D/g, '');
+			<p 
+				class = 'text'
+				style:color = {messageColor}
+				style:transition = 'color 1s ease'
+			>
+				Enter the phone number to view the SMS.
+			</p>
+			<div style:display = flex>
+				<div 
+					style:display = flex
+					style:align-items = center
+					style:gap = 0.45rem
+					style:background-color = {theme?.surface.ghost.background}
+					style:border = {`1px solid ${theme?.border.disabled.color}`}
+					style:height = {theme?.controls.height}
+					style:border-radius = {theme?.border.borderRadius.balanced}
+					style:margin-right = 0.58rem
+					style:padding = 0.45rem
+					style:box-sizing = border-box
+				>
+					<img 
+						src = 'ru.png'
+						alt = ru 
+						height = 100%
+					/>
+					<p>+7</p>
+				</div>
+				<TextField 
+					bind:value = {phone}
+					width = 100% 
+					label = '(XXX) XXX XX-XX' 
+					oninput={(e: Event) => {
+						phone = extractors.getInputValue(e); //Извлечение значения
+						phone = phone.replace(/\D/g, '');
 
-					if (phone.length !== 0) {
-						phone = formatNumber(phone);
+						if (phone.length !== 0) {
+							phone = formatNumber(phone);
+						}
+					}}
+					maxlength=15
+				/>
+			</div>
+			<Button 
+				width = 100%
+				onclick = {() => {
+					if (phone.length !== 15) {
+						messageColor = 'red';
+
+						// Возвращаем исходный цвет через 1 секунду (1000 мс)
+						setTimeout(() => {
+							messageColor = '#6b6b6b';
+						}, 3000);
 					}
 				}}
-				maxlength=15
-			/>
-		</div>
-		<Button 
-			width = 100%
-			onclick = {() => {
-				if (phone.length !== 15) {
-					messageColor = 'red';
-
-					// Возвращаем исходный цвет через 1 секунду (1000 мс)
-					setTimeout(() => {
-						messageColor = '#6b6b6b';
-					}, 3000);
-				}
-			}}
-		>
-			Next
-		</Button>
-		<TitledBox>
-			
+			>
+				Next
+			</Button>
 		</TitledBox>
 	</div>
 </div>
@@ -168,6 +173,11 @@
 		justify-content: center;
 		align-items: center;
 		height: 75vh;
+	}
+
+	.text {
+		margin-top: -0.2rem;
+		margin-bottom: -0.2rem;
 	}
 
 	.vertical-magin {
