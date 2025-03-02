@@ -111,11 +111,8 @@
 					style:display = flex
 					style:align-items = center
 					style:gap = 0.45rem
-					style:background-color = {theme?.surface.ghost.background}
-					style:border = {`1px solid ${theme?.border.disabled.color}`}
 					style:height = {theme?.controls.height}
-					style:border-radius = {theme?.border.borderRadius.balanced}
-					style:margin-right = 0.58rem
+					style:margin-right = 0.2rem
 					style:padding = 0.45rem
 					style:box-sizing = border-box
 				>
@@ -172,7 +169,6 @@
 		display: flex; /* Активируем flexbox */
 		justify-content: center;
 		align-items: center;
-		height: 75vh;
 	}
 
 	.text {
